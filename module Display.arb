@@ -1,0 +1,67 @@
+code = ['purple', 'cyan', '*', 'white']
+guess = ['white', 'purple', '*', 'purple']
+
+guess.each_with_index do |p, i|
+    if code.include?(p)
+        code.count(p)
+        code[i] == p ? right_number += 1 : wrong_number += 1
+    end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def player_is_setter
+    code = player_setting
+    guess_code = []
+    puts code
+    right_position = clue_color('r')
+    wrong_position = clue_color('w')
+    until turns == 6
+     right_number = 0
+     wrong_number = 0
+     color = computer.guess
+     (4 - guess_code.length).times {guess_code << color}
+     print guess_code
+     guess_code.each_with_index do |p, i|
+       right_number += 1 if p == code[i]
+     end
+     if code.include?(color)
+       guess_code.pop(guess_code.count(color) - code.count(color))
+       
+     else
+       guess_code.pop(guess_code.count(color))
+     end
+    
+     right_number.times {print right_position}
+     wrong_number.times {print wrong_position}
+     print "\n"
+     @turns += 1
+    end
+
+    if guess_code == code
+     print "tototo#{guess_code}"
+    else
+     until turns == 12
+       guess_code = guess_code.sample(4)
+       print "sample: #{guess_code}"
+       break if guess_code == code
+       @turns += 1
+     end 
+     print "finish: #{guess_code}"
+     
+    end
+ end
